@@ -20,10 +20,10 @@ public class Repositories {
 
     private static final Repositories repositories = new Repositories();
     private final List<LocalRepository<?,?>> localRepositories = new ArrayList<>();
-    private final List<QueryRepository<?,?>> queryRepositories = new ArrayList<>();
-    private final List<ReadOnlyRepository<?,?>> readOnlyRepositories = new ArrayList<>();
+    private final List<QueryRepository<?>> queryRepositories = new ArrayList<>();
+    private final List<ReadOnlyRepository<?>> readOnlyRepositories = new ArrayList<>();
     private final List<ReadWriteRepository<?,?>> readWriteRepositories = new ArrayList<>();
-    private final List<TransientRepository<?,?>> transientRepositories = new ArrayList<>();
+    private final List<TransientRepository<?>> transientRepositories = new ArrayList<>();
 
     /**
      * Construtor privado para evitar instanciação direta, conforme o padrão Singleton.

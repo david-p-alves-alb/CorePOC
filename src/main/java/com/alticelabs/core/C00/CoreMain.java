@@ -15,7 +15,8 @@ import org.bson.conversions.Bson;
 
 public class CoreMain {
     public static void main(String[] args) {
-        // INSTANCIAÇÃO DE REPOS
+        // INSTANCIAÇÃO DE REPOS (feito pelo TC)
+        /*
         DatasourceFactory datasourceFactory = DatasourceFactory.getInstance();
 
         Datasource readWriteSnapshotDatasource = datasourceFactory.getDatasource("readWriteSnapshots");
@@ -31,7 +32,7 @@ public class CoreMain {
         LocalRepository<Bson,Bson> localRepository = new LocalRepository<>(
                 new TCDatasourceAdapter(localSnapshotDatasource),
                 new TCDatasourceAdapter(localEventDatasource));
-
+        */
 
         // CDC
         TransactionLog transactionLog = new TransactionLog();
