@@ -4,7 +4,6 @@ import com.alticelabs.api.IQuery;
 import com.alticelabs.repository.R03.RepoDatasource;
 import org.bson.conversions.Bson;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,12 +12,11 @@ import java.util.Optional;
  * Esta classe fornece métodos para consultar entidades por ID, listas de IDs, consultas personalizadas e contagem de resultados.
  *
  * @param <T> o tipo da entidade, que deve estender {@link Bson}
- * @param <S> o tipo do evento, que deve estender {@link Bson}
  * @author EquipaARQ
  * @version 1.0
  * @since 2025-03-05
  */
-public class QueryRepository<T extends Bson, S extends Bson> {
+public class QueryRepository<T extends RepoEntity> {
 
     private final RepoDatasource entityDatasource;
 

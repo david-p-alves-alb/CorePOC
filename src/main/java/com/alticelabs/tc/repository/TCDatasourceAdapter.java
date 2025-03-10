@@ -1,4 +1,4 @@
-package com.alticelabs.core.R03PP01;
+package com.alticelabs.tc.repository;
 
 import com.alticelabs.persistenceprovider.PP01.Datasource;
 import com.alticelabs.repository.R03.RepoDatasource;
@@ -6,11 +6,11 @@ import org.bson.conversions.Bson;
 
 import java.util.List;
 
-public class CoreDatasourceAdapter implements RepoDatasource {
+public class TCDatasourceAdapter implements RepoDatasource {
 
     private final Datasource datasource;
 
-    public CoreDatasourceAdapter(Datasource datasource) {
+    public TCDatasourceAdapter(Datasource datasource) {
         this.datasource = datasource;
     }
 

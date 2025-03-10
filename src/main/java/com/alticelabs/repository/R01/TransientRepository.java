@@ -1,5 +1,7 @@
 package com.alticelabs.repository.R01;
 
+import com.alticelabs.api.ExagonEntity;
+import com.alticelabs.api.ExagonEntityEvent;
 import com.alticelabs.repository.R03.RepoDatasource;
 import com.alticelabs.repository.R04.RepoMemShared;
 import org.bson.conversions.Bson;
@@ -13,12 +15,11 @@ import java.util.Optional;
  * Esta classe suporta operações de salvamento, consulta, remoção e verificação de existência de entidades.
  *
  * @param <T> o tipo da entidade, que deve estender {@link Bson}
- * @param <S> o tipo do evento, que deve estender {@link Bson}
  * @author EquipaARQ
  * @version 1.0
  * @since 2025-03-05
  */
-public class TransientRepository<T extends Bson, S extends Bson> {
+public class TransientRepository<T extends RepoEntity> {
 
     private final RepoMemShared entityDatasource;
 
@@ -37,7 +38,19 @@ public class TransientRepository<T extends Bson, S extends Bson> {
      * @param id o identificador da entidade
      * @param entity a entidade a ser salva
      */
-    public void save(String id, T entity) {}
+    public T save(String id, T entity) {
+        return entity;
+    }
+
+    /**
+     * Salva uma entidade associada a um identificador no repositório.
+     *
+     * @param id o identificador da entidade
+     * @param entity a entidade a ser salva
+     */
+    public T save(String id, T entity,long ttl) {
+        return entity;
+    }
 
     /**
      * Obtém uma entidade pelo seu identificador.
@@ -53,18 +66,18 @@ public class TransientRepository<T extends Bson, S extends Bson> {
      * Obtém todas as entidades associadas a uma coleção de identificadores.
      *
      * @param ids a coleção de identificadores das entidades
-     * @return um {@link Iterable} contendo as entidades encontradas
+     * @return um {@link List} contendo as entidades encontradas
      */
-    public Iterable<T> getAllByIds(Iterable<String> ids) {
+    public List<T> getAllByIds(Iterable<String> ids) {
         return null;
     }
 
     /**
      * Obtém todas as entidades armazenadas no repositório.
      *
-     * @return um {@link Iterable} contendo todas as entidades
+     * @return um {@link List} contendo todas as entidades
      */
-    public Iterable<T> getAll() {
+    public List<T> getAll() {
         return null;
     }
 

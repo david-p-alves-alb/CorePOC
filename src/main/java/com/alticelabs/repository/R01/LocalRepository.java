@@ -17,7 +17,7 @@ import java.util.Optional;
  * @version 1.0
  * @since 2025-03-05
  */
-public class LocalRepository<T extends Bson, S extends Bson> {
+public class LocalRepository<T extends RepoEntity, S extends RepoEntityEvent> {
 
     private final RepoDatasource entityDatasource;
     private final RepoDatasource eventDatasource;

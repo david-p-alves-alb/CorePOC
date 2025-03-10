@@ -1,5 +1,7 @@
 package com.alticelabs.repository.R01;
 
+import com.alticelabs.api.ExagonEntity;
+import com.alticelabs.api.ExagonEntityEvent;
 import com.alticelabs.repository.R03.RepoDatasource;
 import org.bson.conversions.Bson;
 
@@ -12,12 +14,11 @@ import java.util.Optional;
  * Esta classe fornece métodos para consultar entidades por identificadores, sem permitir modificações.
  *
  * @param <T> o tipo da entidade, que deve estender {@link Bson}
- * @param <S> o tipo do evento, que deve estender {@link Bson}
  * @author EquipaARQ
  * @version 1.0
  * @since 2025-03-05
  */
-public class ReadOnlyRepository<T extends Bson, S extends Bson> {
+public class ReadOnlyRepository<T extends RepoEntity> {
 
     private final RepoDatasource entityDatasource;
     private final RepoDatasource eventDatasource;

@@ -1,5 +1,7 @@
 package com.alticelabs.repository.R01;
 
+import com.alticelabs.api.ExagonEntity;
+import com.alticelabs.api.ExagonEntityEvent;
 import com.alticelabs.repository.R03.RepoDatasource;
 import org.bson.conversions.Bson;
 
@@ -17,7 +19,7 @@ import java.util.Optional;
  * @version 1.0
  * @since 2025-03-05
  */
-public class ReadWriteRepository<T extends Bson, S extends Bson> {
+public class ReadWriteRepository<T extends RepoEntity, S extends RepoEntityEvent> {
 
     private final RepoDatasource entityDatasource;
     private final RepoDatasource eventDatasource;

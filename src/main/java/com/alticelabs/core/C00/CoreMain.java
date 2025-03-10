@@ -1,6 +1,6 @@
 package com.alticelabs.core.C00;
 
-import com.alticelabs.core.R03PP01.CoreDatasourceAdapter;
+import com.alticelabs.tc.repository.TCDatasourceAdapter;
 import com.alticelabs.core.R03PP01.CoreTransactionLogAdapter;
 import com.alticelabs.core.R02PS01.CorePubSubAdapter;
 import com.alticelabs.core.R04Redis.CoreMemSharedAdapter;
@@ -17,40 +17,21 @@ public class CoreMain {
     public static void main(String[] args) {
         // INSTANCIAÇÃO DE REPOS
         DatasourceFactory datasourceFactory = DatasourceFactory.getInstance();
-        Datasource readOnlySnapshotDatasource = datasourceFactory.getDatasource("readOnlySnapshots");
-        Datasource readOnlyEventDatasource = datasourceFactory.getDatasource("readOnlyEvents");
-
-        ReadOnlyRepository<Bson,Bson> readOnlyRepository = new ReadOnlyRepository<>(
-                new CoreDatasourceAdapter(readOnlySnapshotDatasource),
-                new CoreDatasourceAdapter(readOnlyEventDatasource));
 
         Datasource readWriteSnapshotDatasource = datasourceFactory.getDatasource("readWriteSnapshots");
         Datasource readWriteEventDatasource = datasourceFactory.getDatasource("readWriteEvents");
 
         ReadWriteRepository<Bson,Bson> readWriteRepository = new ReadWriteRepository<>(
-                new CoreDatasourceAdapter(readWriteSnapshotDatasource),
-                new CoreDatasourceAdapter(readWriteEventDatasource));
+                new TCDatasourceAdapter(readWriteSnapshotDatasource),
+                new TCDatasourceAdapter(readWriteEventDatasource));
 
         Datasource localSnapshotDatasource = datasourceFactory.getDatasource("localSnapshots");
         Datasource localEventDatasource = datasourceFactory.getDatasource("localEvents");
 
         LocalRepository<Bson,Bson> localRepository = new LocalRepository<>(
-                new CoreDatasourceAdapter(localSnapshotDatasource),
-                new CoreDatasourceAdapter(localEventDatasource));
+                new TCDatasourceAdapter(localSnapshotDatasource),
+                new TCDatasourceAdapter(localEventDatasource));
 
-        Datasource queryEntityDatasource = datasourceFactory.getDatasource("queryEntity");
-        Datasource querySnapshotDatasource = datasourceFactory.getDatasource("querySnapshots");
-        Datasource queryEventDatasource = datasourceFactory.getDatasource("queryEvents");
-
-        QueryRepository<Bson,Bson> queryRepository = new QueryRepository<>(
-                new CoreDatasourceAdapter(queryEntityDatasource),
-                new CoreDatasourceAdapter(querySnapshotDatasource),
-                new CoreDatasourceAdapter(queryEventDatasource));
-
-
-        KeyValueStore redisKeyValueStore = new KeyValueStore();
-        TransientRepository<Bson,Bson> transientRepository = new TransientRepository<>(
-                new CoreMemSharedAdapter(redisKeyValueStore));
 
         // CDC
         TransactionLog transactionLog = new TransactionLog();
