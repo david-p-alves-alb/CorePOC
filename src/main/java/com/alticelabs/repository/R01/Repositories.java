@@ -1,12 +1,9 @@
 package com.alticelabs.repository.R01;
 
-import com.alticelabs.repository.R02.RepoPubSub;
-import com.alticelabs.repository.R03.RepoTransactionLog;
 import com.alticelabs.repository.im_agent.IMAgent;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Gerencia os repositórios e as operações relacionadas com sagas, utilizando um agente de gerenciamento de sagas.
@@ -19,6 +16,7 @@ import java.util.Map;
 public class Repositories {
 
     private static final Repositories repositories = new Repositories();
+
     private final List<LocalRepository<?,?>> localRepositories = new ArrayList<>();
     private final List<QueryRepository<?>> queryRepositories = new ArrayList<>();
     private final List<ReadOnlyRepository<?>> readOnlyRepositories = new ArrayList<>();
@@ -37,6 +35,26 @@ public class Repositories {
      */
     public static Repositories getInstance() {
         return repositories;
+    }
+
+    public List<TransientRepository<?>> getTransientRepositories() {
+        return transientRepositories;
+    }
+
+    public List<ReadWriteRepository<?, ?>> getReadWriteRepositories() {
+        return readWriteRepositories;
+    }
+
+    public List<ReadOnlyRepository<?>> getReadOnlyRepositories() {
+        return readOnlyRepositories;
+    }
+
+    public List<QueryRepository<?>> getQueryRepositories() {
+        return queryRepositories;
+    }
+
+    public List<LocalRepository<?, ?>> getLocalRepositories() {
+        return localRepositories;
     }
 
     /**
@@ -71,6 +89,26 @@ public class Repositories {
      */
     public void start() {
         //Start em todos os repositórios
+    }
+
+    public void addLocalRepository(LocalRepository<?,?> localRepository) {
+        localRepositories.add(localRepository);
+    }
+
+    public void addReadOnlyRepository(ReadOnlyRepository<?> readOnlyRepository) {
+        readOnlyRepositories.add(readOnlyRepository);
+    }
+
+    public void addReadWriteRepository(ReadWriteRepository<?,?> readWriteRepository) {
+        readWriteRepositories.add(readWriteRepository);
+    }
+
+    public void addQueryRepository(QueryRepository<?> queryRepository) {
+        queryRepositories.add(queryRepository);
+    }
+
+    public void addTransientRepository(TransientRepository<?> transientRepository) {
+        transientRepositories.add(transientRepository);
     }
 
 }

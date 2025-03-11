@@ -1,12 +1,9 @@
 package com.alticelabs.repository.R01;
 
-import com.alticelabs.api.ExagonEntity;
-import com.alticelabs.api.ExagonEntityEvent;
-import com.alticelabs.repository.R03.RepoDatasource;
+import com.alticelabs.repo_external_api.Entity;
 import com.alticelabs.repository.R04.RepoMemShared;
 import org.bson.conversions.Bson;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +16,7 @@ import java.util.Optional;
  * @version 1.0
  * @since 2025-03-05
  */
-public class TransientRepository<T extends RepoEntity> {
+public class TransientRepository<T extends Entity> {
 
     private final RepoMemShared entityDatasource;
 

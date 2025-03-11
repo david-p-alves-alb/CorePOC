@@ -1,6 +1,7 @@
 package com.alticelabs.repository.R01;
 
-import com.alticelabs.api.IQuery;
+import com.alticelabs.repo_external_api.Entity;
+import com.alticelabs.repo_external_api.IQuery;
 import com.alticelabs.repository.R03.RepoDatasource;
 import org.bson.conversions.Bson;
 
@@ -16,7 +17,7 @@ import java.util.Optional;
  * @version 1.0
  * @since 2025-03-05
  */
-public class QueryRepository<T extends RepoEntity> {
+public class QueryRepository<T extends Entity> {
 
     private final RepoDatasource entityDatasource;
 

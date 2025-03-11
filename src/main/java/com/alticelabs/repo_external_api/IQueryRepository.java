@@ -1,11 +1,9 @@
-package com.alticelabs.api;
-
-import org.bson.conversions.Bson;
+package com.alticelabs.repo_external_api;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface IQueryRepository<T extends ExagonEntity> {
+public interface IQueryRepository<T extends Entity> {
     Optional<? extends T> getByID(String id);
 
     Optional<List<? extends T>> getAllById(List<String> id);

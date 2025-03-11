@@ -1,17 +1,10 @@
 package com.alticelabs.core.C00;
 
-import com.alticelabs.tc.repository.TCDatasourceAdapter;
 import com.alticelabs.core.R03PP01.CoreTransactionLogAdapter;
 import com.alticelabs.core.R02PS01.CorePubSubAdapter;
-import com.alticelabs.core.R04Redis.CoreMemSharedAdapter;
-import com.alticelabs.persistenceprovider.PP01.Datasource;
-import com.alticelabs.persistenceprovider.PP01.DatasourceFactory;
 import com.alticelabs.persistenceprovider.PP01.TransactionLog;
 import com.alticelabs.pubsub.PS01.PubSubManager;
-import com.alticelabs.redis.Redis01.KeyValueStore;
 import com.alticelabs.repository.R00.RepositoryManager;
-import com.alticelabs.repository.R01.*;
-import org.bson.conversions.Bson;
 
 public class CoreMain {
     public static void main(String[] args) {

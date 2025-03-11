@@ -1,8 +1,7 @@
-package com.alticelabs.tc.repository;
+package com.alticelabs.tc.R01Controller;
 
-import com.alticelabs.api.ExagonEntity;
-import com.alticelabs.api.ExagonEntityEvent;
-import com.alticelabs.api.IReadOnlyRepository;
+import com.alticelabs.repo_external_api.Entity;
+import com.alticelabs.repo_external_api.IReadOnlyRepository;
 import com.alticelabs.persistenceprovider.PP01.Datasource;
 import com.alticelabs.persistenceprovider.PP01.DatasourceFactory;
 import com.alticelabs.repository.R01.ReadOnlyRepository;
@@ -10,8 +9,8 @@ import com.alticelabs.repository.R01.ReadOnlyRepository;
 import java.util.List;
 import java.util.Optional;
 
-public class TCReadOnlyRepository<T extends ExagonEntity> implements IReadOnlyRepository<T> {
-    private final ReadOnlyRepository<TCEntityAdapter<? extends T>> repository;
+public class TCReadOnlyRepository<T extends Entity> implements IReadOnlyRepository<T> {
+    private final ReadOnlyRepository<T> repository;
 
     public TCReadOnlyRepository(Class<T> entityClass) {
         // TEM DE SER O TC A SABER AS COLLECTIONS DOS DATASOURCES
@@ -26,21 +25,20 @@ public class TCReadOnlyRepository<T extends ExagonEntity> implements IReadOnlyRe
     public Optional<T> getByID(String id) {
         // OBTER A PARTIR DO CONTEXTO
         String sagaID = "SAGAID";
-        Optional<TCEntityAdapter<? extends T>> adapterOptional = repository.getById(sagaID, id);
-        return adapterOptional.map(TCEntityAdapter::getEntity);
+        return repository.getById(sagaID, id);
     }
 
     @Override
     public List<T> getAllByID(List<String> ids) {
         // OBTER A PARTIR DO CONTEXTO
         String sagaID = "SAGAID";
-        return (List<T>) repository.getByIdList(sagaID, ids).stream().map(TCEntityAdapter::getEntity).toList();
+        return repository.getByIdList(sagaID, ids);
     }
 
     @Override
     public Optional<T> getByIDLatest(String id) {
         // OBTER A PARTIR DO CONTEXTO
         String sagaID = "SAGAID";
-        return repository.getByIdLatest(sagaID,id).map(TCEntityAdapter::getEntity);
+        return repository.getByIdLatest(sagaID,id);
     }
 }

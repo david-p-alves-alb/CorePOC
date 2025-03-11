@@ -1,6 +1,6 @@
-package com.alticelabs.repository.R01;
+package com.alticelabs.repo_external_api;
 
-public abstract class RepoEntityID {
+public abstract class EntityID {
     private String id;
 
     public String getId() {
@@ -11,10 +11,11 @@ public abstract class RepoEntityID {
         this.id = id;
     }
 
-    public RepoEntityID(String id) {
+    public EntityID(String id) {
         this.id = id;
     }
 
-    public RepoEntityID() {
+    public EntityID() {
     }
 }
+

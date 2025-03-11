@@ -1,4 +1,4 @@
-package com.alticelabs.api;
+package com.alticelabs.repo_external_api;
 
 public interface IQuery {
     int getSkip();

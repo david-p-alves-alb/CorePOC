@@ -1,10 +1,10 @@
-package com.alticelabs.api;
+package com.alticelabs.repo_external_api;
 
 
 import java.util.List;
 import java.util.Optional;
 
-public interface ILocalRepository<T extends ExagonEntity,S extends ExagonEntityEvent> {
+public interface ILocalRepository<T extends Entity,S extends EntityEvent> {
     Optional<T> getByID(String id);
 
     List<T> getAllByID(List<String> ids);

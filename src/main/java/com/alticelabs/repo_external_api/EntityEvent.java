@@ -1,14 +1,14 @@
-package com.alticelabs.api;
+package com.alticelabs.repo_external_api;
 
 import org.bson.conversions.Bson;
 
-public abstract class ExagonEntityEvent extends ExagonEntityID implements Bson {
+public abstract class EntityEvent extends EntityID implements Bson {
     private String childClass;
 
-    public ExagonEntityEvent() {
+    public EntityEvent() {
     }
 
-    public ExagonEntityEvent(String ID) {
+    public EntityEvent(String ID) {
         super(ID);
     }
 

@@ -1,11 +1,9 @@
-package com.alticelabs.api;
-
-import org.bson.conversions.Bson;
+package com.alticelabs.repo_external_api;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface IReadWriteRepository<T extends ExagonEntity,S extends ExagonEntityEvent> {
+public interface IReadWriteRepository<T extends Entity,S extends EntityEvent> {
     Optional<T> getByID(String id);
 
     List<T> getAllByID(List<String> ids);

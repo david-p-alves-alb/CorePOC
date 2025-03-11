@@ -1,20 +1,17 @@
-package com.alticelabs.tc.repository;
+package com.alticelabs.tc.R01Controller;
 
-import com.alticelabs.api.ExagonEntity;
-import com.alticelabs.api.ExagonEntityEvent;
-import com.alticelabs.api.IQuery;
-import com.alticelabs.api.IQueryRepository;
+import com.alticelabs.repo_external_api.Entity;
+import com.alticelabs.repo_external_api.IQuery;
+import com.alticelabs.repo_external_api.IQueryRepository;
 import com.alticelabs.persistenceprovider.PP01.Datasource;
 import com.alticelabs.persistenceprovider.PP01.DatasourceFactory;
 import com.alticelabs.repository.R01.QueryRepository;
-import com.alticelabs.repository.R01.ReadOnlyRepository;
-import org.bson.conversions.Bson;
 
 import java.util.List;
 import java.util.Optional;
 
-public class TCQueryRepository<T extends ExagonEntity> implements IQueryRepository<T> {
-    private final QueryRepository<TCEntityAdapter<? extends T>> repository;
+public class TCQueryRepository<T extends Entity> implements IQueryRepository<T> {
+    private final QueryRepository<T> repository;
 
     public TCQueryRepository(Class<T> entityClass) {
         // TEM DE SER O TC A SABER AS COLLECTIONS DOS DATASOURCES
@@ -31,32 +28,23 @@ public class TCQueryRepository<T extends ExagonEntity> implements IQueryReposito
 
     @Override
     public Optional<? extends T> getByID(String id) {
-        return repository.getByID(id).map(TCEntityAdapter::getEntity);
+        return repository.getByID(id);
     }
 
     @Override
     public Optional<List<? extends T>> getAllById(List<String> ids) {
-        Optional<List<? extends TCEntityAdapter<? extends T>>> listOptional = repository.getAllById(ids);
-        return listOptional.
-                map(tcEntityAdapters -> tcEntityAdapters.stream().
-                        map(TCEntityAdapter::getEntity).toList());
+        return repository.getAllById(ids);
     }
 
     @Override
     public Optional<List<? extends T>> getByQuery(IQuery filter) {
-        Optional<List<? extends TCEntityAdapter<? extends T>>> listOptional = repository.getByQuery(filter);
-        return listOptional.
-                map(tcEntityAdapters -> tcEntityAdapters.stream().
-                        map(TCEntityAdapter::getEntity).toList());
+        return repository.getByQuery(filter);
     }
 
     // VER SE ESTE MÉTODO FAZ SENTIDO E COMO RESOLVER O PROBLEMA DO ADAPTADOR
     @Override
     public <O extends T> Optional<List<O>> getByQuery(IQuery filter, Class<O> toClass) {
-        Optional<List<? extends TCEntityAdapter<? extends T>>> listOptional = repository.getByQuery(filter);
-        return listOptional.
-                map(tcEntityAdapters -> tcEntityAdapters.stream().
-                        map((TCEntityAdapter::getEntity)).map(toClass::cast).toList());
+        return repository.getByQuery(filter,toClass);
     }
 
     @Override

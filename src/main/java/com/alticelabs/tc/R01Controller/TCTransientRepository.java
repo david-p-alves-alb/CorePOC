@@ -1,22 +1,16 @@
-package com.alticelabs.tc.repository;
+package com.alticelabs.tc.R01Controller;
 
-import com.alticelabs.api.ExagonEntity;
-import com.alticelabs.api.ExagonEntityEvent;
-import com.alticelabs.api.ITransientRepository;
+import com.alticelabs.repo_external_api.Entity;
+import com.alticelabs.repo_external_api.ITransientRepository;
 import com.alticelabs.core.R04Redis.CoreMemSharedAdapter;
-import com.alticelabs.persistenceprovider.PP01.Datasource;
-import com.alticelabs.persistenceprovider.PP01.DatasourceFactory;
 import com.alticelabs.redis.Redis01.KeyValueStore;
-import com.alticelabs.repository.R01.ReadOnlyRepository;
 import com.alticelabs.repository.R01.TransientRepository;
-import org.bson.conversions.Bson;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-public class TCTransientRepository<T extends ExagonEntity> implements ITransientRepository<T> {
-    private final TransientRepository<TCEntityAdapter<? extends T>> repository;
+public class TCTransientRepository<T extends Entity> implements ITransientRepository<T> {
+    private final TransientRepository<T> repository;
 
     public TCTransientRepository(Class<T> entityClass) {
         // TEM DE SER O TC A SABER AS COLLECTIONS DOS DATASOURCES
@@ -27,27 +21,27 @@ public class TCTransientRepository<T extends ExagonEntity> implements ITransient
 
     @Override
     public T save(String id, T entity) {
-        return repository.save(id,new TCEntityAdapter<>(entity)).getEntity();
+        return repository.save(id,entity);
     }
 
     @Override
     public T save(String id, T entity, Long ttl) {
-        return repository.save(id,new TCEntityAdapter<>(entity),ttl).getEntity();
+        return repository.save(id,entity,ttl);
     }
 
     @Override
     public Optional<T> getByID(String id) {
-        return repository.getByID(id).map(TCEntityAdapter::getEntity);
+        return repository.getByID(id);
     }
 
     @Override
     public List<T> getAllByIds(List<String> ids) {
-        return (List<T>) repository.getAllByIds(ids).stream().map(TCEntityAdapter::getEntity).toList();
+        return (List<T>) repository.getAllByIds(ids);
     }
 
     @Override
     public List<T> getAll() {
-        return (List<T>) repository.getAll().stream().map(TCEntityAdapter::getEntity).toList();
+        return repository.getAll();
     }
 
     @Override
