@@ -1,37 +1,37 @@
 package com.alticelabs.repository.im_agent;
 
-import com.alticelabs.repository.R02.RepoPubSub;
-import com.alticelabs.repository.R02.RepoSubscriptionHandler;
+import com.alticelabs.repository.api.PubSubChannel;
+import com.alticelabs.repository.api.PubSubFactory;
+import com.alticelabs.repository.api.SubscriptionHandler;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Agente responsável por gerenciar isolamento de sagas em um sistema distribuído.
- * Esta classe implementa {@link RepoSubscriptionHandler} para processar mensagens de subscrição e utiliza um sistema Pub/Sub para comunicação.
+ * Esta classe implementa {@link SubscriptionHandler} para processar mensagens de subscrição e utiliza um sistema Pub/Sub para comunicação.
  *
  * @author [Teu Nome]
  * @version 1.0
  * @since 2025-03-05
  */
-public class IMAgent implements RepoSubscriptionHandler {
-    private static final IMAgent INSTANCE = new IMAgent();
-    private RepoPubSub pubSub;
-    private Map<String, IsolationTimestamps> isolationTimestampsMap;
+public class IMAgent implements SubscriptionHandler {
+    private final PubSubChannel isolationReferenceChannel;
+    private final PubSubChannel imSagaChannel;
+    private final Map<String, IsolationTimestamps> isolationTimestampsMap;
 
-    private IMAgent() {
+    public IMAgent(PubSubFactory pubSub) {
+        this.isolationReferenceChannel = pubSub.getChannel("IM_ISOLATIONREFERENCE");
+        this.imSagaChannel = pubSub.getChannel("IM_TOPIC");
         isolationTimestampsMap = new HashMap<>();
     }
 
-    public static IMAgent getINSTANCE() {
-        return INSTANCE;
-    }
 
     /**
      * Inicia o agente, subscrevendo-se ao destino de referência de isolamento.
      */
     public void start() {
-        pubSub.subscribe("IM_ISOLATIONREFERENCE", this);
+        isolationReferenceChannel.subscribe(this);
     }
 
     /**
@@ -40,7 +40,7 @@ public class IMAgent implements RepoSubscriptionHandler {
      * @param sagaId o identificador da saga a ser iniciada
      */
     public void sagaStart(String sagaId) {
-        pubSub.publish("IM_TOPIC", "SAGAID", Map.of(), "SAGAStart");
+        imSagaChannel.publish("SAGAID", Map.of(), "SAGAStart");
     }
 
     /**
@@ -49,7 +49,7 @@ public class IMAgent implements RepoSubscriptionHandler {
      * @param sagaId o identificador da saga a ser parada
      */
     public void sagaStop(String sagaId) {
-        pubSub.publish("IM_TOPIC", "SAGAID", Map.of(), "SAGAStart");
+        imSagaChannel.publish("SAGAID", Map.of(), "SAGAStart");
     }
 
     /**
@@ -58,7 +58,7 @@ public class IMAgent implements RepoSubscriptionHandler {
      * @param sagaId o identificador da saga a ser revertida
      */
     public void sagaRollback(String sagaId) {
-        pubSub.publish("IM_TOPIC", "SAGAID", Map.of(), "SAGAStart");
+        imSagaChannel.publish("SAGAID", Map.of(), "SAGAStart");
     }
 
     /**
@@ -83,7 +83,4 @@ public class IMAgent implements RepoSubscriptionHandler {
         return isolationTimestampsMap.get(sagaID);
     }
 
-    public void setPubSub(RepoPubSub pubSub) {
-        this.pubSub = pubSub;
-    }
 }

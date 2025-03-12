@@ -1,43 +1,33 @@
 package com.alticelabs.core.C00;
 
-import com.alticelabs.core.R03PP01.CoreTransactionLogAdapter;
-import com.alticelabs.core.R02PS01.CorePubSubAdapter;
-import com.alticelabs.persistenceprovider.PP01.TransactionLog;
-import com.alticelabs.pubsub.PS01.PubSubManager;
-import com.alticelabs.repository.R00.RepositoryManager;
+import com.alticelabs.core.repo_persistence.TransactionLogAdapter;
+import com.alticelabs.core.repo_pubsub.PubSubFactoryAdapter;
+import com.alticelabs.persistenceprovider.api.DatasourceFactory;
+import com.alticelabs.persistenceprovider.api.TransactionLog;
+import com.alticelabs.pubsub.api.PubSubFactory;
+import com.alticelabs.redis.api.KeyValueFactory;
+import com.alticelabs.repository.api.RepositoryFactory;
 
 public class CoreMain {
     public static void main(String[] args) {
-        // INSTANCIAÇÃO DE REPOS (feito pelo TC)
-        /*
-        DatasourceFactory datasourceFactory = DatasourceFactory.getInstance();
-
-        Datasource readWriteSnapshotDatasource = datasourceFactory.getDatasource("readWriteSnapshots");
-        Datasource readWriteEventDatasource = datasourceFactory.getDatasource("readWriteEvents");
-
-        ReadWriteRepository<Bson,Bson> readWriteRepository = new ReadWriteRepository<>(
-                new TCDatasourceAdapter(readWriteSnapshotDatasource),
-                new TCDatasourceAdapter(readWriteEventDatasource));
-
-        Datasource localSnapshotDatasource = datasourceFactory.getDatasource("localSnapshots");
-        Datasource localEventDatasource = datasourceFactory.getDatasource("localEvents");
-
-        LocalRepository<Bson,Bson> localRepository = new LocalRepository<>(
-                new TCDatasourceAdapter(localSnapshotDatasource),
-                new TCDatasourceAdapter(localEventDatasource));
-        */
-
-        // CDC
-        TransactionLog transactionLog = new TransactionLog();
-        CoreTransactionLogAdapter coreTransactionLogAdapter = new CoreTransactionLogAdapter(transactionLog);
 
         // PubSub
-        PubSubManager pubSubManager = new PubSubManager();
-        CorePubSubAdapter corePubSubAdapter = new CorePubSubAdapter(pubSubManager);
+        PubSubFactory.getINSTANCE().start();
+        PubSubFactoryAdapter pubSubAdapter = new PubSubFactoryAdapter();
 
+        //Persistence
+        DatasourceFactory.getInstance().start();
+        // Persistence tem de já ter iniciado para poder obter o transaction log
+        TransactionLog transactionLog = new TransactionLog();
+        TransactionLogAdapter transactionLogAdapter = new TransactionLogAdapter(transactionLog);
 
-        RepositoryManager.getInstance().setRepoTransactionLog(coreTransactionLogAdapter);
-        RepositoryManager.getInstance().setRepoPubSub(corePubSubAdapter);
-        RepositoryManager.getInstance().start();
+        //Redis
+        KeyValueFactory.getINSTANCE().start();
+
+        //Repository
+        RepositoryFactory.getINSTANCE().setPubSubFactory(pubSubAdapter);
+        RepositoryFactory.getINSTANCE().setTransactionLog(transactionLogAdapter);
+        RepositoryFactory.getINSTANCE().start();
+
     }
 }

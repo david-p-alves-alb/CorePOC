@@ -1,28 +1,39 @@
 package com.alticelabs.repository.rollback;
 
-import com.alticelabs.repository.R02.RepoSubscriptionHandler;
+import com.alticelabs.repository.api.PubSubChannel;
+import com.alticelabs.repository.api.PubSubFactory;
+import com.alticelabs.repository.api.RepositoryFactory;
+import com.alticelabs.repository.api.SubscriptionHandler;
 
 import java.util.Map;
 
 /**
- * Handler de rollback para processar mensagens relacionadas a operações de reversão.
- * Esta classe implementa {@link RepoSubscriptionHandler} para responder a eventos de rollback recebidos via Pub/Sub.
+ * Gerencia operações de rollback em repositórios, utilizando um sistema de publicação e assinatura (Pub/Sub).
+ * Esta classe subscreve um manipulador de rollback a um destino específico para processar mensagens de reversão.
  *
  * @author [Teu Nome]
  * @version 1.0
  * @since 2025-03-05
  */
-public class RollbackHandler implements RepoSubscriptionHandler {
+public class RollbackHandler implements SubscriptionHandler {
+
+    private PubSubChannel rollbackChannel;
+    private final RepositoryFactory repositoryFactory;
+
+    public RollbackHandler(PubSubFactory pubSubFactory, RepositoryFactory repositoryFactory) {
+        this.rollbackChannel = pubSubFactory.getChannel("IM_ROLLBACK");
+        this.repositoryFactory = repositoryFactory;
+    }
 
     /**
-     * Processa uma mensagem recebida do sistema Pub/Sub para lidar com operações de rollback.
-     *
-     * @param key a chave associada à mensagem
-     * @param headers os cabeçalhos da mensagem, representados como um mapa de chave-valor
-     * @param message o conteúdo da mensagem
+     * Inicia o processo de rollback, subscrevendo um manipulador ao destino "rollback".
      */
+    public void start() {
+        this.rollbackChannel.subscribe(this);
+    }
+
     @Override
     public void execute(String key, Map<String, String> headers, String message) {
-        // Handle Rollback
+        repositoryFactory.rollback(key);
     }
 }
