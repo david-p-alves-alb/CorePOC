@@ -11,7 +11,7 @@ import java.util.Optional;
  * Representa um repositório de consultas para acesso a entidades e eventos, utilizando CQRS.
  * Esta classe fornece métodos para consultar entidades por ID, listas de IDs, consultas personalizadas e contagem de resultados.
  *
- * @param <T> o tipo da entidade, que deve estender {@link Bson}
+ * @param <T> o tipo da entidade, que deve estender {@link Entity}
  */
 public class QueryRepository<T extends Entity> {
 

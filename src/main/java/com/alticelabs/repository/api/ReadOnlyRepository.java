@@ -13,6 +13,8 @@ import java.util.Optional;
  * permitir modificações.
  * Também recebe as alterações efetuadas no repositório
  * {@link com.alticelabs.repository.api.ReadWriteRepository} da mesma entidade.
+ *
+ * @param <T> o tipo da entidade, que deve estender {@link Entity}
  */
 public class ReadOnlyRepository<T extends Entity> {
 

@@ -10,7 +10,7 @@ import java.util.Optional;
  * Representa um repositório transitório para gerenciamento de entidades em memória compartilhada.
  * Esta classe suporta operações de salvamento, consulta, remoção e verificação de existência de entidades.
  *
- * @param <T> o tipo da entidade, que deve estender {@link Bson}
+ * @param <T> o tipo da entidade
  */
 public class TransientRepository<T> {
 

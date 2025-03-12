@@ -15,8 +15,8 @@ import java.util.Optional;
  * Também replica as alterações efetuadas para outros repositórios
  * {@link com.alticelabs.repository.api.ReadOnlyRepository} da mesma entidade.
  *
- * @param <T> o tipo da entidade, que deve estender {@link Bson}
- * @param <S> o tipo do evento, que deve estender {@link Bson}
+ * @param <T> o tipo da entidade, que deve estender {@link Entity}
+ * @param <S> o tipo do evento, que deve estender {@link EntityEvent}
  */
 public class ReadWriteRepository<T extends Entity, S extends EntityEvent> {
 

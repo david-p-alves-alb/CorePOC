@@ -12,8 +12,8 @@ import java.util.Optional;
  * Representa um repositório local para gerenciamento de entidades e eventos.
  * Esta classe suporta operações como criação, salvamento, consulta e remoção de entidades.
  *
- * @param <T> o tipo da entidade, que deve estender {@link Bson}
- * @param <S> o tipo do evento, que deve estender {@link Bson}
+ * @param <T> o tipo da entidade, que deve estender {@link Entity}
+ * @param <S> o tipo do evento, que deve estender {@link EntityEvent}
  */
 public class LocalRepository<T extends Entity, S extends EntityEvent> {
 
