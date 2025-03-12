@@ -4,6 +4,9 @@ import org.bson.conversions.Bson;
 
 import java.util.List;
 
+/**
+ * The base for domain entities in an Event Sourcing architecture that can be reconstructed from a sequence of events.
+ */
 public abstract class Entity extends EntityID implements Bson {
     public Entity() {
     }
@@ -12,5 +15,11 @@ public abstract class Entity extends EntityID implements Bson {
         super(ID);
     }
 
-    public abstract void reconstruct(List<EntityEvent> var1);
+    /**
+     * Reconstructs the entity's state from a list of events.
+     * Each event represents a change applied to the entity over time.
+     *
+     * @param events the list of events used to restore the entity's state
+     */
+    public abstract void reconstruct(List<EntityEvent> events);
 }
