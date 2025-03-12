@@ -41,7 +41,7 @@ public interface IReadWriteRepository<T extends Entity,S extends EntityEvent> {
     String create(T entity);
 
     /**
-     * Guarda um evento
+     * Guarda um evento associado a uma entidade.
      *
      * @param event     o evento a guardar.
      */

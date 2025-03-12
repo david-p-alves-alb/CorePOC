@@ -10,10 +10,6 @@ import java.util.Map;
 /**
  * Gerencia operações de rollback em repositórios, utilizando um sistema de publicação e assinatura (Pub/Sub).
  * Esta classe subscreve um manipulador de rollback a um destino específico para processar mensagens de reversão.
- *
- * @author [Teu Nome]
- * @version 1.0
- * @since 2025-03-05
  */
 public class RollbackHandler implements SubscriptionHandler {
 

@@ -1,39 +1,42 @@
 package com.alticelabs.repository.im_agent;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
+/**
+ * Modelo com os tempos de isolamento de uma Saga enviados pelo Isolation Manager.
+ */
 public class IsolationTimestamps {
-    private LocalDateTime tsWrite;
-    private LocalDateTime tsRead;
-    private LocalDateTime tsReference;
+    private Instant tsWrite;
+    private Instant tsRead;
+    private Instant tsReference;
 
-    public IsolationTimestamps(LocalDateTime tsWrite, LocalDateTime tsRead, LocalDateTime tsReference) {
+    public IsolationTimestamps(Instant tsWrite, Instant tsRead, Instant tsReference) {
         this.tsWrite = tsWrite;
         this.tsRead = tsRead;
         this.tsReference = tsReference;
     }
 
-    public LocalDateTime getTsWrite() {
+    public Instant getTsWrite() {
         return tsWrite;
     }
 
-    public void setTsWrite(LocalDateTime tsWrite) {
+    public void setTsWrite(Instant tsWrite) {
         this.tsWrite = tsWrite;
     }
 
-    public LocalDateTime getTsRead() {
+    public Instant getTsRead() {
         return tsRead;
     }
 
-    public void setTsRead(LocalDateTime tsRead) {
+    public void setTsRead(Instant tsRead) {
         this.tsRead = tsRead;
     }
 
-    public LocalDateTime getTsReference() {
+    public Instant getTsReference() {
         return tsReference;
     }
 
-    public void setTsReference(LocalDateTime tsReference) {
+    public void setTsReference(Instant tsReference) {
         this.tsReference = tsReference;
     }
 }

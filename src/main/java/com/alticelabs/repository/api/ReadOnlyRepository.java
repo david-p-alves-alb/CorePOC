@@ -8,13 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Representa um repositório somente de leitura para acesso a entidades e eventos.
- * Esta classe fornece métodos para consultar entidades por identificadores, sem permitir modificações.
- *
- * @param <T> o tipo da entidade, que deve estender {@link Bson}
- * @author EquipaARQ
- * @version 1.0
- * @since 2025-03-05
+ * Representa um repositório somente de leitura que opera em cima de uma arquitetura de Event Sourcing.
+ * Este repositório fornece métodos para consultar entidades dentro de uma transação (Saga) por identificadores, sem
+ * permitir modificações.
+ * Também recebe as alterações efetuadas no repositório
+ * {@link com.alticelabs.repository.api.ReadWriteRepository} da mesma entidade.
  */
 public class ReadOnlyRepository<T extends Entity> {
 
