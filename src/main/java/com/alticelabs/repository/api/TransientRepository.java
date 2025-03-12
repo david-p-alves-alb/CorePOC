@@ -11,9 +11,6 @@ import java.util.Optional;
  * Esta classe suporta operações de salvamento, consulta, remoção e verificação de existência de entidades.
  *
  * @param <T> o tipo da entidade, que deve estender {@link Bson}
- * @author EquipaARQ
- * @version 1.0
- * @since 2025-03-05
  */
 public class TransientRepository<T> {
 

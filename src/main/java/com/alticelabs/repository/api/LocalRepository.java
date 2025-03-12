@@ -14,9 +14,6 @@ import java.util.Optional;
  *
  * @param <T> o tipo da entidade, que deve estender {@link Bson}
  * @param <S> o tipo do evento, que deve estender {@link Bson}
- * @author EquipaARQ
- * @version 1.0
- * @since 2025-03-05
  */
 public class LocalRepository<T extends Entity, S extends EntityEvent> {
 

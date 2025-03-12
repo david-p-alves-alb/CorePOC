@@ -2,7 +2,7 @@ package com.alticelabs.repositoryAPI;
 
 public abstract class EntityID {
 
-    /** Unique identifier of the entity. */
+    /** Identificador único da entidade. */
     private String id;
 
     public String getId() {

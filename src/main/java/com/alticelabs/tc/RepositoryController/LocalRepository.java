@@ -12,6 +12,7 @@ import com.alticelabs.persistenceprovider.api.DatasourceFactory;
 import java.util.List;
 import java.util.Optional;
 
+
 public class LocalRepository<T extends Entity,S extends EntityEvent> implements ILocalRepository<T,S> {
     private final com.alticelabs.repository.api.LocalRepository<T,S> repository;
 

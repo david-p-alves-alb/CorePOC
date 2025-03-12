@@ -12,10 +12,6 @@ import java.util.List;
 /**
  * Gerencia os repositórios e as operações relacionadas com sagas, utilizando um agente de gerenciamento de sagas.
  * Esta classe implementa o padrão Singleton para garantir uma única instância global.
- *
- * @author EquipaARQ
- * @version 1.0
- * @since 2025-03-05
  */
 public class RepositoryFactory {
     private static final RepositoryFactory INSTANCE = new RepositoryFactory();
@@ -128,10 +124,17 @@ public class RepositoryFactory {
         rollbackHandler.start();
     }
 
+    /**
+     * Inicia a tarefa de captura de dados de mudança (CDC) em repositórios.
+     * Esta tarefa deve ser executada por um único processo.
+     */
     public void cdcEnable() {
         cdcHandler.start();
     }
 
+    /**
+     * Encerra a tarefa de captura de dados de mudança (CDC) em repositórios.
+     */
     public void cdcDisable() {
         cdcHandler.stop();
     }

@@ -7,9 +7,9 @@ import java.util.Optional;
 public interface IReadOnlyRepository<T extends Entity> {
 
     /**
-     * Gets a reconstructed entity with isolation constraints.
+     * Obtém uma entidade reconstruída com restrições de isolamento.
      *
-     * @param id    id for search
+     * @param id    ID para pesquisa
      * @return      the entity if it exists, null otherwise
      */
     Optional<T> getByID(String id);

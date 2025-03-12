@@ -8,10 +8,21 @@ import com.alticelabs.repositoryAPI.EntityEvent;
 import com.alticelabs.repositoryAPI.IReadWriteRepository;
 import com.alticelabs.persistenceprovider.api.Datasource;
 import com.alticelabs.persistenceprovider.api.DatasourceFactory;
+import org.bson.conversions.Bson;
 
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Representa um repositório de leitura e escrita que opera em cima de uma arquitetura de Event Sourcing.
+ * Este repositório suporta operações de criação, salvamento, consulta, remoção e reversão de entidades, com isolamento
+ * intrínseco.
+ * Também replica as alterações efetuadas para outros repositórios
+ * {@link com.alticelabs.repository.api.ReadOnlyRepository} da mesma entidade.
+ *
+ * @param <T> o tipo da entidade, que deve estender {@link Bson}
+ * @param <S> o tipo do evento, que deve estender {@link Bson}
+ */
 public class ReadWriteRepository<T extends Entity,S extends EntityEvent> implements IReadWriteRepository<T,S> {
     private final com.alticelabs.repository.api.ReadWriteRepository<T,S> repository;
 

@@ -9,14 +9,14 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Representa um repositório de leitura e escrita para gerenciamento de entidades e eventos .
- * Esta classe suporta operações de criação, salvamento, consulta, remoção e reversão de entidades.
+ * Representa um repositório de leitura e escrita que opera em cima de uma arquitetura de Event Sourcing.
+ * Este repositório suporta operações de criação, salvamento, consulta, remoção e reversão de entidades dentro de uma
+ * transação (Saga).
+ * Também replica as alterações efetuadas para outros repositórios
+ * {@link com.alticelabs.repository.api.ReadOnlyRepository} da mesma entidade.
  *
  * @param <T> o tipo da entidade, que deve estender {@link Bson}
  * @param <S> o tipo do evento, que deve estender {@link Bson}
- * @author EquipaArq
- * @version 1.0
- * @since 2025-03-05
  */
 public class ReadWriteRepository<T extends Entity, S extends EntityEvent> {
 

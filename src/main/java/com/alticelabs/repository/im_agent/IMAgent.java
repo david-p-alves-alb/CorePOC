@@ -9,14 +9,14 @@ import java.util.Map;
 
 /**
  * Agente responsável por gerenciar isolamento de sagas em um sistema distribuído.
- * Esta classe implementa {@link SubscriptionHandler} para processar mensagens de subscrição e utiliza um sistema Pub/Sub para comunicação.
- *
- * @author [Teu Nome]
- * @version 1.0
- * @since 2025-03-05
+ * Esta classe implementa {@link SubscriptionHandler} para processar mensagens de subscrição e utiliza um sistema
+ * Pub/Sub para comunicação.
  */
 public class IMAgent implements SubscriptionHandler {
+
+    /** Canal para receber os tempos de isolamento de uma Saga */
     private final PubSubChannel isolationReferenceChannel;
+    /** Canal para iniciar/terminar uma Saga */
     private final PubSubChannel imSagaChannel;
     private final Map<String, IsolationTimestamps> isolationTimestampsMap;
 
@@ -25,7 +25,6 @@ public class IMAgent implements SubscriptionHandler {
         this.imSagaChannel = pubSub.getChannel("IM_TOPIC");
         isolationTimestampsMap = new HashMap<>();
     }
-
 
     /**
      * Inicia o agente, subscrevendo-se ao destino de referência de isolamento.

@@ -10,17 +10,15 @@ import java.util.Map;
 
 /**
  * Gerencia a captura de dados de mudança (CDC - Change Data Capture) em repositórios.
- * Esta classe implementa o padrão Singleton e utiliza um log de transações e um sistema Pub/Sub para processar e publicar alterações.
- *
- * @author [Teu Nome]
- * @version 1.0
- * @since 2025-03-05
+ * Esta classe implementa o padrão Singleton e utiliza um log de transações e um sistema Pub/Sub para processar e
+ * publicar alterações.
  */
 public class CDCHandler {
 
     private final TransactionLog transactionLog;
     private final PubSubFactory pubSubFactory;
     private boolean running = false;
+
     /**
      * Construtor privado para evitar instanciação direta, conforme o padrão Singleton.
      */

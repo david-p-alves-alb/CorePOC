@@ -7,33 +7,46 @@ import java.util.Optional;
 public interface ILocalRepository<T extends Entity,S extends EntityEvent> {
 
     /**
-     * Gets a reconstructed entity with isolation constraints.
+     * Obtém uma entidade reconstruída com restrições de isolamento.
      *
-     * @param id    id for search
+     * @param id    ID para pesquisa
      * @return      the entity if it exists, null otherwise
      */
     Optional<T> getByID(String id);
 
     /**
-     * Loops through idList to get reconstructed entities with isolation constraints.
+     * Percorre `ids` para obter entidades reconstruídas com restrições de isolamento.
      *
-     * @param ids   list of ids for search
-     * @return      the list of entities if they exist, empty array otherwise
+     * @param ids   lista de ids para pesquisa
+     * @return      a lista de entidades se existirem, matriz vazia caso contrário
      */
     List<T> getAllByID(List<String> ids);
 
     /**
-     * Gets reconstructed entity without isolation constraints.
+     * Obtém uma entidade reconstruída sem restrições de isolamento.
      *
-     * @param id    id for search
+     * @param id    identificação para pesquisa
      * @return      the entity if it exists, null otherwise
      */
     Optional<T> getByIDLatest(String id);
 
+    /**
+     * Cria uma entidade com restrições de isolamento se a entidade não existir.
+     *
+     * @return  o ID da entidade criada se a entidade não existir, nulo caso contrário
+     */
     String create(T entity);
 
+    /**
+     * Guarda um evento associado a uma entidade.
+     *
+     * @param event     o evento a guardar.
+     */
     void save(S event);
 
+    /**
+     * Remove uma entidade a partir do seu ID.
+     */
     void remove(String id);
 
     void revert();

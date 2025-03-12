@@ -12,9 +12,6 @@ import java.util.Optional;
  * Esta classe fornece métodos para consultar entidades por ID, listas de IDs, consultas personalizadas e contagem de resultados.
  *
  * @param <T> o tipo da entidade, que deve estender {@link Bson}
- * @author EquipaARQ
- * @version 1.0
- * @since 2025-03-05
  */
 public class QueryRepository<T extends Entity> {
 
