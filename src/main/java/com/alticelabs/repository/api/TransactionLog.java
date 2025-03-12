@@ -2,19 +2,15 @@ package com.alticelabs.repository.api;
 
 
 /**
- * Define uma interface para um registro no log de transações .
- * Esta interface permite iniciar um log de transações e obter a próxima modificação registrada.
- *
- * @author EquipaARQ
- * @version 1.0
- * @since 2025-03-05
+ * Esta interface define o comportamento esperado de um Transaction Log (OpLog).
+ * Esta interface permite começar a ler o Transaction Log a partir de um determinado token e permite obter a próxima mudança.
  */
 public interface TransactionLog {
 
     /**
-     * Inicia o registro de modificações com um token específico.
+     * Inicia a leitura do log de transações na posição determinada pelo token.
      *
-     * @param token o token associado ao início do log
+     * @param token o token associado à posição no log.
      */
     void start(String token);
 

@@ -3,21 +3,16 @@ package com.alticelabs.repository.api;
 import java.util.Map;
 
 /**
- * Define uma interface para o handler de subscrições em um sistema de publicação e assinatura (Pub/Sub).
- * Esta interface especifica o comportamento para processar mensagens recebidas de um destino subscrito.
- *
- * @author EquipaARQ
- * @version 1.0
- * @since 2025-03-05
+ * Esta interface define o comportamento esperado de um handler de mensagens que chegam através de um {@link PubSubChannel}.
  */
 public interface SubscriptionHandler {
 
     /**
-     * Executa o processamento de uma mensagem recebida de um destino subscrito.
+     * Executa o processamento de uma mensagem recebida.
      *
      * @param key a chave associada à mensagem
      * @param headers os cabeçalhos da mensagem, representados como um mapa de chave-valor
-     * @param message o conteúdo da mensagem
+     * @param payload o conteúdo da mensagem
      */
-    void execute(String key, Map<String, String> headers, String message);
+    void execute(String key, Map<String, String> headers, String payload);
 }

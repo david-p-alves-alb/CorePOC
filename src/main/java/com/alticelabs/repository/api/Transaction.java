@@ -3,12 +3,8 @@ package com.alticelabs.repository.api;
 import org.bson.conversions.Bson;
 
 /**
- * Define uma interface para representar uma modificação no log de transações.
- * Esta interface fornece métodos para acessar informações básicas da modificação, como token, coleção e documento.
- *
- * @author EquipaARQ
- * @version 1.0
- * @since 2025-03-05
+ * Esta interface define o comportamento esperado de uma mudança capturada pelo CDC (Change Data Capture).
+ * Com esta interface é possível obter o token da mudança, a coleção onde esta feita realizada e o documento.
  */
 public interface Transaction {
 

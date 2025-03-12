@@ -3,30 +3,33 @@ package com.alticelabs.repositoryAPI;
 import java.util.List;
 import java.util.Optional;
 
-
+/**
+ * Esta interface define o comportamento esperado de um repositório ReadOnly, onde a informação chega através de State Transfers.
+ * Esta interface suporta a consulta de entidades {@link Entity}
+ */
 public interface IReadOnlyRepository<T extends Entity> {
 
     /**
-     * Gets a reconstructed entity with isolation constraints.
+     * Obtém a entidade reconstruída com restrições de isolamento.
      *
-     * @param id    id for search
-     * @return      the entity if it exists, null otherwise
+     * @param id    id da entidade
+     * @return      a entitade caso exista, senão vazio
      */
     Optional<T> getByID(String id);
 
     /**
-     * Percorre `ids` para obter entidades reconstruídas com restrições de isolamento.
+     * Itera pelos ids das entidades e obtém as entidades reconstruídas com restrições de isolamento.
      *
-     * @param ids   lista de ids para pesquisa
-     * @return      a lista de entidades se existirem, matriz vazia caso contrário
+     * @param ids   lista de ids das entidades
+     * @return      a lista das entidades encontradas. Se nenhum for encontrada, lista vazia.
      */
     List<T> getAllByID(List<String> ids);
 
     /**
-     * Obtém uma entidade reconstruída sem restrições de isolamento.
+     * Obtém a entidade reconstruída sem restrições de isolamento.
      *
-     * @param id    identificação para pesquisa
-     * @return      the entity if it exists, null otherwise
+     * @param id    id da entidade
+     * @return      a entidade caso exista, senão vazio
      */
     Optional<T> getByIDLatest(String id);
 }
