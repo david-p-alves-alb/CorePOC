@@ -30,7 +30,7 @@ public class IMAgent implements SubscriptionHandler {
      * Inicia o agente, subscrevendo-se ao destino de referência de isolamento.
      */
     public void start() {
-        isolationReferenceChannel.subscribe(this);
+        isolationReferenceChannel.subscribe(this,false);
     }
 
     /**

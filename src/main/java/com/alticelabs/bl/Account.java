@@ -13,6 +13,7 @@ public class Account extends Entity {
     private int balance;
 
     public Account(String ID, String name, int balance) {
+        super(ID);
         this.name = name;
         this.balance = balance;
     }

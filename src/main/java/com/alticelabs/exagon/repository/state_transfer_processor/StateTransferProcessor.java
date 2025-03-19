@@ -22,5 +22,8 @@ public class StateTransferProcessor implements SubscriptionHandler {
         eventDatasource.add(Document.parse(payload));
 
         //Invalida a cache
+        new Thread(() -> {
+            // Async work
+        }).start();
     }
 }

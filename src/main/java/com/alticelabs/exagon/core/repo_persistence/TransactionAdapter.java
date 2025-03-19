@@ -4,9 +4,9 @@ import com.alticelabs.exagon.repository.api.interfaces.Transaction;
 import org.bson.conversions.Bson;
 
 public class TransactionAdapter implements Transaction {
-    private final com.alticelabs.exagon.persistenceprovider.api.Transaction transaction;
+    private final com.alticelabs.exagon.persistence_provider.api.Transaction transaction;
 
-    public TransactionAdapter(com.alticelabs.exagon.persistenceprovider.api.Transaction transaction) {
+    public TransactionAdapter(com.alticelabs.exagon.persistence_provider.api.Transaction transaction) {
         this.transaction = transaction;
     }
 

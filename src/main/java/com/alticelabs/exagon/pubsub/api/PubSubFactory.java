@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class PubSubFactory {
     private static PubSubFactory INSTANCE = new PubSubFactory();
-    private final Map<String, PubSubTopic> createdChannels;
+    private final Map<String, PubSubChannel> createdChannels;
     private PubSubFactory() {
         this.createdChannels = new HashMap<>();
     }
@@ -14,22 +14,22 @@ public class PubSubFactory {
         return INSTANCE;
     }
 
-    public PubSubTopic getChannel(String channelName) {
-        if (createdChannels.containsKey(channelName)) {
-            return createdChannels.get(channelName);
+    public PubSubChannel getChannel(String id) {
+        if (createdChannels.containsKey(id)) {
+            return createdChannels.get(id);
         }
-        PubSubTopic pubSubTopic = new PubSubTopic(channelName, CommitMode.BEFORE_HANDLER);
-        createdChannels.put(channelName, pubSubTopic);
-        return pubSubTopic;
+        PubSubChannel pubSubChannel = new PubSubChannel(id, CommitMode.BEFORE_HANDLER);
+        createdChannels.put(id, pubSubChannel);
+        return pubSubChannel;
     }
 
-    public PubSubTopic getPriorityChannel(String channelName) {
-        if (createdChannels.containsKey(channelName)) {
-            return createdChannels.get(channelName);
+    public PubSubChannel getPriorityChannel(String id) {
+        if (createdChannels.containsKey(id)) {
+            return createdChannels.get(id);
         }
-        PubSubTopic pubSubTopic = new PubSubTopic(channelName, CommitMode.AFTER_HANDLER);
-        createdChannels.put(channelName, pubSubTopic);
-        return pubSubTopic;
+        PubSubChannel pubSubChannel = new PubSubChannel(id, CommitMode.AFTER_HANDLER);
+        createdChannels.put(id, pubSubChannel);
+        return pubSubChannel;
     }
 
     public void start() {}

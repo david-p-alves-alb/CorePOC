@@ -22,7 +22,7 @@ public class ChargingService {
             Account account = optionalAccount.get();
             int balance = account.getBalance();
             balance -= amount;
-            AccountChangeBalanceEvent accountChangeBalanceEvent = new AccountChangeBalanceEvent(balance);
+            AccountChangeBalanceEvent accountChangeBalanceEvent = new AccountChangeBalanceEvent(accountID,balance);
             accountRepository.save(sagaId, accountChangeBalanceEvent);
         }
     }

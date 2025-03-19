@@ -1,6 +1,6 @@
 package com.alticelabs.exagon.core.repo_persistence;
 
-import com.alticelabs.exagon.persistenceprovider.api.Datasource;
+import com.alticelabs.exagon.persistence_provider.api.Datasource;
 import com.alticelabs.exagon.repository.api.interfaces.PersistenceDatasource;
 import org.bson.conversions.Bson;
 

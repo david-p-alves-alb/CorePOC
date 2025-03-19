@@ -1,15 +1,14 @@
 package com.alticelabs.exagon.core.repo_pubsub;
 
-import com.alticelabs.exagon.pubsub.api.PubSubTopic;
-import com.alticelabs.exagon.repository.api.interfaces.PubSubChannel;
+import com.alticelabs.exagon.pubsub.api.PubSubChannel;
 import com.alticelabs.exagon.repository.api.interfaces.SubscriptionHandler;
 
 import java.util.Map;
 
-public class PubSubChannelAdapter implements PubSubChannel {
-    private final PubSubTopic topic;
+public class PubSubChannelAdapter implements com.alticelabs.exagon.repository.api.interfaces.PubSubChannel {
+    private final PubSubChannel topic;
 
-    public PubSubChannelAdapter(PubSubTopic topic) {
+    public PubSubChannelAdapter(PubSubChannel topic) {
         this.topic = topic;
     }
 
@@ -19,7 +18,7 @@ public class PubSubChannelAdapter implements PubSubChannel {
     }
 
     @Override
-    public void subscribe(SubscriptionHandler handler) {
-        this.topic.subscribe(new SubscriptionHandlerAdapter(handler));
+    public void subscribe(SubscriptionHandler handler,boolean priority) {
+        this.topic.subscribe(new SubscriptionHandlerAdapter(handler),priority);
     }
 }

@@ -50,8 +50,9 @@ public class CDCHandler {
                 BsonDocument document = transaction.getDocument().toBsonDocument();
                 String documentId = document.getString("id").toString();
                 String collection = transaction.getCollection();
+
                 // Send document to pub sub
-                PubSubChannel collectionChannel = pubSubFactory.getChannel(collection);
+                PubSubChannel collectionChannel = pubSubFactory.getPriorityChannel(collection);
                 collectionChannel.publish(documentId, Map.of(), document.toString());
 
                 // Save token

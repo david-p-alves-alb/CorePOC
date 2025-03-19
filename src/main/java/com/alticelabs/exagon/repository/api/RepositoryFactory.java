@@ -11,25 +11,50 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Gerencia os repositórios e as operações relacionadas com sagas, utilizando um agente de gerenciamento de sagas.
- * Esta classe implementa o padrão Singleton para garantir uma única instância global.
+ * Representa uma fábrica de repositórios. Esta classe permite criar novos repositórios e chamar operações que são
+ * gerais a todos os repositórios (Ex.: Rollback).
+ * Esta classe ainda tem a responsabilidade de iniciar o módulo de repositórios.
  */
 public class RepositoryFactory {
     private static final RepositoryFactory INSTANCE = new RepositoryFactory();
 
+
+    /**
+     * Local Repositories Instanciados.
+     */
+    private final List<LocalRepository<?,?>> localRepositories = new ArrayList<>();
+    /**
+     * Query Repositories Instanciados.
+     */
+    private final List<QueryRepository<?>> queryRepositories = new ArrayList<>();
+    /**
+     * ReadOnly Repositories Instanciados.
+     */
+    private final List<ReadOnlyRepository<?>> readOnlyRepositories = new ArrayList<>();
+    /**
+     * ReadWrite Repositories Instanciados.
+     */
+    private final List<ReadWriteRepository<?,?>> readWriteRepositories = new ArrayList<>();
+    /**
+     * Transient Repositories Instanciados.
+     */
+    private final List<TransientRepository<?>> transientRepositories = new ArrayList<>();
+
+    /**
+     * Obtem os Local Repositories instanciados.
+     *
+     */
     public List<LocalRepository<?, ?>> getLocalRepositories() {
         return localRepositories;
     }
 
+    /**
+     * Obtem os ReadWrite Repositories instanciados.
+     *
+     */
     public List<ReadWriteRepository<?, ?>> getReadWriteRepositories() {
         return readWriteRepositories;
     }
-
-    private final List<LocalRepository<?,?>> localRepositories = new ArrayList<>();
-    private final List<QueryRepository<?>> queryRepositories = new ArrayList<>();
-    private final List<ReadOnlyRepository<?>> readOnlyRepositories = new ArrayList<>();
-    private final List<ReadWriteRepository<?,?>> readWriteRepositories = new ArrayList<>();
-    private final List<TransientRepository<?>> transientRepositories = new ArrayList<>();
 
     private IMAgent imAgent;
     private RollbackHandler rollbackHandler;
@@ -43,30 +68,54 @@ public class RepositoryFactory {
 
     }
 
+    /**
+     * Retorna o objeto Singleton de RepositoryFactory.
+     *
+     */
     public static RepositoryFactory getINSTANCE() {
         return INSTANCE;
     }
 
+    /**
+     * Injeta uma fábrica de PubSub.
+     *
+     */
     public void setPubSubFactory(PubSubFactory pubSubFactory) {
         this.pubSubFactory = pubSubFactory;
     }
 
+    /**
+     * Injeta uma instância de Transaction Log.
+     *
+     */
     public void setTransactionLog(TransactionLog transactionLog) {
         this.transactionLog = transactionLog;
     }
 
+    /**
+     * Injeta uma fábrica de PersistenceDatasource.
+     *
+     */
     public void setPersistenceDatasourceFactory(PersistenceDatasourceFactory persistenceDatasourceFactory) {
         this.persistenceDatasourceFactory = persistenceDatasourceFactory;
     }
 
+    /**
+     * Injeta uma fábrica de MemSharedDatasource
+     *
+     */
     public void setMemSharedDatasourceFactory(MemSharedDatasourceFactory memSharedDatasourceFactory) {
         this.memSharedDatasourceFactory = memSharedDatasourceFactory;
     }
 
+    /**
+     * Inicia o módulo de repositórios.
+     *
+     */
     public void start() {
         this.imAgent = new IMAgent(pubSubFactory);
         this.rollbackHandler = new RollbackHandler(pubSubFactory);
-        this.cdcHandler = new CDCHandler(pubSubFactory,transactionLog);
+        this.cdcHandler = new CDCHandler(pubSubFactory,transactionLog,persistenceDatasourceFactory.getDatasource("token"));
 
         // Start IM Agent
         imAgent.start();
@@ -75,6 +124,12 @@ public class RepositoryFactory {
         rollbackHandler.start();
     }
 
+    /**
+     * Constrói um novo repositório local especifico para as classes fornecidas.
+     *
+     * @param entityClass classe para entidades
+     * @param eventClass classe para eventos
+     */
     public <T extends Entity,S extends EntityEvent> LocalRepository<T,S> getLocalRepository(Class<T> entityClass, Class<S> eventClass) {
         PersistenceDatasource entityDatasource = persistenceDatasourceFactory.getDatasource(entityClass.getName());
         PersistenceDatasource eventDatasource = persistenceDatasourceFactory.getDatasource(entityClass.getName());
@@ -84,16 +139,28 @@ public class RepositoryFactory {
         return localRepository;
     }
 
+    /**
+     * Constrói um novo repositório readOnly especifico para a classe fornecida.
+     *
+     * @param entityClass classe para entidades
+     */
     public <T extends Entity> ReadOnlyRepository<T> getReadOnlyRepository(Class<T> entityClass) {
         PersistenceDatasource entityDatasource = persistenceDatasourceFactory.getDatasource(entityClass.getName());
         PersistenceDatasource eventDatasource = persistenceDatasourceFactory.getDatasource(entityClass.getName());
         MemSharedDatasource cacheDatasource = memSharedDatasourceFactory.getKeyValueStore(entityClass.getName());
         PubSubChannel stateTransferChannel = pubSubFactory.getPriorityChannel(entityClass.getName());
-        ReadOnlyRepository<T> readOnlyRepository = new ReadOnlyRepository<>(entityDatasource, eventDatasource, cacheDatasource,stateTransferChannel);
+        ReadOnlyRepository<T> readOnlyRepository = new ReadOnlyRepository<>(entityDatasource, eventDatasource,
+                cacheDatasource,stateTransferChannel);
         readOnlyRepositories.add(readOnlyRepository);
         return readOnlyRepository;
     }
 
+    /**
+     * Constrói um novo repositório readWrite especifico para as classes fornecidas.
+     *
+     * @param entityClass classe para entidades
+     * @param eventClass classe para eventos
+     */
     public <T extends Entity,S extends EntityEvent> ReadWriteRepository<T,S> getReadWriteRepository(Class<T> entityClass, Class<S> eventClass) {
         PersistenceDatasource entityDatasource = persistenceDatasourceFactory.getDatasource(entityClass.getName());
         PersistenceDatasource eventDatasource = persistenceDatasourceFactory.getDatasource(entityClass.getName());
@@ -103,6 +170,11 @@ public class RepositoryFactory {
         return readWriteRepository;
     }
 
+    /**
+     * Constrói um novo repositório Query especifico para a classe fornecida.
+     *
+     * @param entityClass classe para entidades
+     */
     public <T extends Entity> QueryRepository<T> getQueryRepository(Class<T> entityClass) {
         PersistenceDatasource entityDatasource = persistenceDatasourceFactory.getDatasource(entityClass.getName());
         PersistenceDatasource eventDatasource = persistenceDatasourceFactory.getDatasource(entityClass.getName());
@@ -112,6 +184,11 @@ public class RepositoryFactory {
         return queryRepository;
     }
 
+    /**
+     * Constrói um novo repositório transiente especifico para a classe fornecida.
+     *
+     * @param entityClass classe para entidades
+     */
     public <T> TransientRepository<T> getTransientRepository(Class<T> entityClass) {
         MemSharedDatasource memSharedDatasource = memSharedDatasourceFactory.getKeyValueStore(entityClass.getName());
         TransientRepository<T> transientRepository = new TransientRepository<>(memSharedDatasource);

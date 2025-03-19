@@ -6,7 +6,8 @@ import org.bson.conversions.Bson;
 public class AccountChangeBalanceEvent extends AccountEvents {
     private final int balanceChange;
 
-    public AccountChangeBalanceEvent(int balanceChange) {
+    public AccountChangeBalanceEvent(String ID,int balanceChange) {
+        super(ID);
         this.balanceChange = balanceChange;
     }
 

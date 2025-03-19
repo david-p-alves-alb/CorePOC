@@ -1,4 +1,4 @@
-package com.alticelabs.exagon.persistenceprovider.api;
+package com.alticelabs.exagon.persistence_provider.api;
 
 import org.bson.conversions.Bson;
 

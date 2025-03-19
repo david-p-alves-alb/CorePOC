@@ -22,6 +22,7 @@ public interface PubSubChannel {
      * Subscreve a um canal específico, associando um handler para processar as mensagens recebidas.
      *
      * @param handler o handler que processará as mensagens recebidas
+     * @param priority indica se o handler deve ou não ser prioritário
      */
-    void subscribe(SubscriptionHandler handler);
+    void subscribe(SubscriptionHandler handler,boolean priority);
 }

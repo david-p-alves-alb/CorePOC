@@ -26,7 +26,7 @@ public class RollbackHandler implements SubscriptionHandler {
      * Inicia o processo de rollback, subscrevendo um manipulador ao destino "rollback".
      */
     public void start() {
-        this.rollbackChannel.subscribe(this);
+        this.rollbackChannel.subscribe(this,true);
     }
 
     @Override

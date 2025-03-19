@@ -42,7 +42,7 @@ public class ReadOnlyRepository<T extends Entity> {
 
     protected void start() {
         StateTransferProcessor stateTransferProcessor = new StateTransferProcessor(eventDatasource,cacheDatasource);
-        stateTransferChannel.subscribe(stateTransferProcessor);
+        stateTransferChannel.subscribe(stateTransferProcessor,true);
     }
 
     /**
