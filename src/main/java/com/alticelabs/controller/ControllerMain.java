@@ -1,7 +1,7 @@
 package com.alticelabs.controller;
 
 import com.alticelabs.bl.ChargingService;
-import com.alticelabs.exagon.core.api.ExagonCore;
+import com.alticelabs.exagon2.core.api.ExagonCore;
 
 public class ControllerMain {
     public static void main(String[] args) {

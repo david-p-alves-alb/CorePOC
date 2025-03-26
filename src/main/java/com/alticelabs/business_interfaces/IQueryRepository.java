@@ -1,7 +1,7 @@
 package com.alticelabs.business_interfaces;
 
-import com.alticelabs.exagon.repository_models.model.Entity;
-import com.alticelabs.exagon.repository_models.filters.IQuery;
+import com.alticelabs.exagon.api.repository.model.Entity;
+import com.alticelabs.exagon.api.filters.IQuery;
 
 import java.util.List;
 import java.util.Optional;

@@ -3,8 +3,8 @@ package com.alticelabs.controller;
 import com.alticelabs.bl.Account;
 import com.alticelabs.bl.AccountEvents;
 import com.alticelabs.business_interfaces.ILocalRepository;
-import com.alticelabs.exagon.repository.api.LocalRepository;
-import com.alticelabs.exagon.repository.api.RepositoryFactory;
+import com.alticelabs.exagon2.core.repository.api.LocalRepository;
+import com.alticelabs.exagon2.core.repository.api.RepositoryFactory;
 
 import java.util.List;
 import java.util.Optional;

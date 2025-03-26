@@ -1,6 +1,6 @@
 package com.alticelabs.business_interfaces;
 
-import com.alticelabs.exagon.repository_models.model.Entity;
+import com.alticelabs.exagon.api.repository.model.Entity;
 
 import java.util.List;
 import java.util.Optional;

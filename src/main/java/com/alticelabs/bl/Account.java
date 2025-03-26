@@ -1,7 +1,7 @@
 package com.alticelabs.bl;
 
-import com.alticelabs.exagon.repository_models.model.Entity;
-import com.alticelabs.exagon.repository_models.model.EntityEvent;
+import com.alticelabs.exagon.api.repository.model.Entity;
+import com.alticelabs.exagon.api.repository.model.EntityEvent;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
