@@ -2,8 +2,6 @@ package com.alticelabs.exagon_working.infra_lib.keyvaluestore;
 
 import com.alticelabs.exagon.infra_lib.InfraException;
 
-import java.util.List;
-
 /**
  * Interface representing a key-value store with support for various operations.
  *
@@ -58,23 +56,4 @@ public interface IExagonKeyValueStore<T> {
      * @throws InfraException if an error occurs while deleting the key
      */
     boolean delete(String key) throws InfraException;
-
-    /**
-     * Stores a value in a set associated with the specified key and field.
-     *
-     * @param key the key of the set
-     * @param field the field within the set
-     * @param value the value to be stored
-     * @throws InfraException if an error occurs while storing the value
-     */
-    void putSet(String key, String field, T value) throws InfraException;
-
-    /**
-     * Retrieves all keys from a set associated with the specified key.
-     *
-     * @param key the key of the set
-     * @return a list of all keys within the set, or an empty list if the set does not exist or no keys are found
-     * @throws InfraException if an error occurs while retrieving the keys
-     */
-    List<String> getAllKeysFromSet(String key) throws InfraException;
 }
