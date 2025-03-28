@@ -2,9 +2,7 @@ package com.alticelabs.exagon_working.pubsub_lib.api;
 
 import com.alticelabs.exagon.infra_lib.IExagonDefaultAPI;
 import com.alticelabs.exagon.infra_lib.InfraException;
-import com.alticelabs.exagon_working.infra_lib.pubsub.IExagonInMemoryChannel;
-import com.alticelabs.exagon_working.infra_lib.pubsub.IExagonMessagingChannel;
-import com.alticelabs.exagon_working.infra_lib.pubsub.IExagonPubSubManager;
+import com.alticelabs.exagon_working.infra_lib.pubsub.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,7 +43,7 @@ public class PubSubManager implements IExagonPubSubManager, IExagonDefaultAPI {
      * {@inheritDoc}
      */
     @Override
-    public IExagonMessagingChannel getMessagingChannel(String name) {
+    public IExagonMessagingChannel getMessagingChannel(String name, MessagingSource source, MessagingChannelPriority priority) {
         return null;
     }
 
