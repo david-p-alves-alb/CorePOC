@@ -43,7 +43,7 @@ public class PubSubManager implements IExagonPubSubManager, IExagonDefaultAPI {
      * {@inheritDoc}
      */
     @Override
-    public IExagonMessagingChannel getMessagingChannel(String name, MessagingSource source, MessagingChannelPriority priority) {
+    public IExagonMessagingChannel getMessagingChannel(String name, MessagingChannelPriority priority) {
         return null;
     }
 

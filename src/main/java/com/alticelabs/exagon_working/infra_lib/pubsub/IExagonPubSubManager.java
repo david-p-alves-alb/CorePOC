@@ -10,13 +10,11 @@ public interface IExagonPubSubManager {
      * Creates and returns a new instance of {@link IExagonMessagingChannel} based on the specified channel name.
      * If a messaging channel for the given name already exists, the same instance is returned.
      * TODO: VER COMO SERÁ A SERIALIZAÇÃO E DESERIALIZAÇÃO? SERÁ PRECISO PASSAR O MODEL TYPE
-     * TODO: FAZ SENTIDO O CANAL E O HANDLER TEREM PRIORIDADES SEPARADAS?
      * @param name the name of the channel
-     * @param source defines what source the channel should use
      * @param priority defines the priority of the channel
      * @return an instance of {@link IExagonMessagingChannel} associated with the given channel name
      */
-    IExagonMessagingChannel getMessagingChannel(String name, MessagingSource source, MessagingChannelPriority priority);
+    IExagonMessagingChannel getMessagingChannel(String name,MessagingChannelPriority priority);
 
     /**
      * Creates and returns a new instance of {@link IExagonInMemoryChannel} based on the specified channel name.
